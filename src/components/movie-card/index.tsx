@@ -1,0 +1,75 @@
+import React from "react";
+import Image from "../Image";
+import Link from "next/link";
+import { Bookmark, PlayIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+type Props = {
+  item: {
+    id: string;
+    title: string;
+    category: string;
+    thumbnail: string;
+    rate: number;
+  };
+  className?: string;
+};
+
+const MovieCard = ({ item, className }: Props) => {
+  return (
+    <div className={cn(className)}>
+      <Link
+        href={`/movie/${item.id}`}
+        className="relative block overflow-hidden rounded-lg [&:hover_.overlay]:opacity-100"
+      >
+        <div className="z-1 overlay absolute inset-0 flex size-full items-center justify-center bg-black/50 p-3 opacity-0 transition-all duration-[250ms] ease-in">
+          <button
+            className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-md bg-black"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+          >
+            <Bookmark className="size-5" strokeWidth={1.75} />
+          </button>
+          <div className="hover:bg-primary/30 size-16 rounded-full bg-white/10 p-1.5 transition-colors duration-200">
+            <button className="flex size-full items-center justify-center rounded-full bg-white">
+              <PlayIcon className="size-7 text-primary" />
+            </button>
+          </div>
+        </div>
+        <div>
+          <Image
+            src={item.thumbnail}
+            className="w-full object-cover object-center"
+          />
+          <div
+            className="absolute left-3 top-3 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 font-medium backdrop-blur-md"
+            style={{
+              borderColor:
+                item.rate >= 7 ? "green" : item.rate >= 5 ? "yellow" : "red",
+            }}
+          >
+            {item.rate}
+          </div>
+        </div>
+      </Link>
+      <div className="mt-3">
+        <Link
+          href={`/movie/${item.id}`}
+          className="line-clamp-1 block text-xl transition-colors duration-150 hover:text-primary"
+        >
+          {item.title}
+        </Link>
+        <Link
+          href={`/category/${item.category}`}
+          className="mt-1 text-lg text-primary decoration-[1.5px] hover:underline"
+        >
+          {item.category}
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+export default MovieCard;

@@ -9,8 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--bg-primary)",
+        primary: "#f9ab00",
+        dark: {
+          1: "#222028",
+        },
+      },
+      padding: {
+        safe: "var(--header-height)",
+      },
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1rem",
       },
     },
   },
