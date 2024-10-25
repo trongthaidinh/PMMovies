@@ -37,7 +37,7 @@ const MovieCard = ({ item, className }: Props) => {
         </div>
         <div>
           <Image
-            src={`https://img.ophim.live/uploads/movies/${item.thumb_url}`}
+            src={`${IMAGE_URL}/${item.thumb_url}`}
             className="w-full object-cover object-center"
           />
           <div
