@@ -6,7 +6,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { slug: string } },
 ) {
-  const slug = params.slug;
+  const { slug } = params;
   const page = Number(req.nextUrl.searchParams.get("page"));
 
   const { data } = await axiosServer.get(`/the-loai/${slug}?page=${page}`);

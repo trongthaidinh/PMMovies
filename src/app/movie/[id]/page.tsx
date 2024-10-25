@@ -6,6 +6,8 @@ import ReactPlayer from "react-player";
 const MovieDetail = () => {
   const { id } = useParams();
 
+  console.log("id ", id);
+
   return (
     <div className="container py-16">
       <h1 className="text-[40px]">I Dream in Another Language</h1>
