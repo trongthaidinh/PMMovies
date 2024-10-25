@@ -1,15 +1,15 @@
 "use client";
-
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import MovieCard from "./movie-card";
+import { forwardRef } from "react";
 
 type Props = {
   list: any[];
 };
 
-const MovieSwiper = ({ list = [] }: Props) => {
+const MovieSwiper = forwardRef<SwiperRef, Props>(({ list = [] }, ref) => {
   return (
-    <Swiper spaceBetween={28} slidesPerView={5} slidesPerGroup={5}>
+    <Swiper ref={ref} spaceBetween={28} slidesPerView={5} slidesPerGroup={5}>
       {list.map((item) => (
         <SwiperSlide key={item?._id}>
           <MovieCard item={item} />
@@ -17,6 +17,6 @@ const MovieSwiper = ({ list = [] }: Props) => {
       ))}
     </Swiper>
   );
-};
+});
 
 export default MovieSwiper;

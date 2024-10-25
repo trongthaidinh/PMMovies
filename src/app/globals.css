@@ -18,3 +18,7 @@ button,
 a {
   outline: none;
 }
+
+.swiper-slide {
+  @apply h-auto;
+}

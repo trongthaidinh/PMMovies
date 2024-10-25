@@ -15,7 +15,9 @@ const UserBox = () => {
     <DropdownMenu>
       <DropdownMenuTrigger className="h-full">
         <div className="flex h-full max-w-[140px] cursor-pointer items-center justify-center rounded-lg border border-primary px-4 transition-colors duration-200 hover:bg-primary/10">
-          <p className="line-clamp-1 w-full uppercase">USERNAME</p>
+          <p className="w-full overflow-hidden text-ellipsis whitespace-nowrap uppercase">
+            USERNAME
+          </p>
           <ChevronDown />
         </div>
       </DropdownMenuTrigger>
