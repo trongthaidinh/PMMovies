@@ -14,7 +14,7 @@ const UserBox = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="h-full">
-        <div className="hover:bg-primary/10 flex h-full max-w-[140px] cursor-pointer items-center justify-center rounded-lg border border-primary px-4 transition-colors duration-200">
+        <div className="flex h-full max-w-[140px] cursor-pointer items-center justify-center rounded-lg border border-primary px-4 transition-colors duration-200 hover:bg-primary/10">
           <p className="line-clamp-1 w-full uppercase">USERNAME</p>
           <ChevronDown />
         </div>
@@ -26,6 +26,11 @@ const UserBox = () => {
         <DropdownMenuItem>
           <Link href="/profile" className="block w-full border-none px-2 py-1">
             Profile
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/archived" className="block w-full border-none px-2 py-1">
+            Archived
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

@@ -16,7 +16,7 @@ const list = [
 
 const Footer = () => {
   return (
-    <div className="border-t border-t-dark-1">
+    <div className="mt-16 border-t border-t-dark-1">
       <div className="container flex h-20 items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="#" className="text-4xl">

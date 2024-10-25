@@ -7,7 +7,7 @@ import CategoriesList from "./CategoriesList";
 
 const Header = () => {
   return (
-    <header className="fixed inset-x-0 top-0 z-[9999] flex h-[var(--header-height)] items-center border-b border-dark-1">
+    <header className="fixed inset-x-0 top-0 z-[9999] flex h-[var(--header-height)] items-center border-b border-dark-1 bg-background">
       <div className="container flex h-10 items-center justify-between gap-8">
         <LogoHeader className="mr-4" />
         <ul className="flex h-full flex-1 items-center gap-6">

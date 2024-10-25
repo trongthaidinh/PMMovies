@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { axiosClient } from "@/config/axios";
 import { IResponseJson } from "@/utils/response-json";
 import { useQuery } from "@tanstack/react-query";
@@ -6,15 +7,27 @@ type Params = {
   page?: number;
 };
 
-const useGetMovieByCategories = (slug: string, params?: Params) => {
+type Props = {
+  slug: string;
+  params?: Params;
+  path?: string;
+};
+
+const useGetMovieByCategories = ({
+  slug,
+  params,
+  path = "get-movies-by-categories",
+}: Props) => {
   const { page = 1 } = params || {};
 
-  const { data, status } = useQuery({
-    queryKey: ["movie_by_categories", slug, page],
+  const { data, status, isFetching, isLoading, isRefetching } = useQuery({
+    queryKey: [path, slug, page],
     queryFn: async () => {
       try {
+        if (!slug) return {};
+
         const { data, status } = await axiosClient.get<IResponseJson<any>>(
-          `/get-movies-by-categories/${slug}`,
+          `/${path}/${slug}`,
           {
             params: {
               page,
@@ -34,6 +47,7 @@ const useGetMovieByCategories = (slug: string, params?: Params) => {
   return {
     data,
     status,
+    isLoading: isFetching || isLoading || isRefetching,
   };
 };
 

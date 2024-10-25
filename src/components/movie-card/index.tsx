@@ -11,8 +11,6 @@ type Props = {
 };
 
 const MovieCard = ({ item, className }: Props) => {
-  console.log("IMAGE_URL ", IMAGE_URL);
-
   return (
     <div className={cn(className)}>
       <Link
@@ -39,9 +37,10 @@ const MovieCard = ({ item, className }: Props) => {
           <Image
             src={`${IMAGE_URL}/${item.thumb_url}`}
             className="w-full object-cover object-center"
+            alt={item?.name}
           />
           <div
-            className="absolute left-3 top-3 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 font-medium backdrop-blur-md"
+            className="absolute left-3 top-3 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 text-sm font-medium backdrop-blur-md"
             style={{
               borderColor:
                 item?.tmdb?.vote_average >= 7
@@ -51,7 +50,7 @@ const MovieCard = ({ item, className }: Props) => {
                     : "red",
             }}
           >
-            {item?.tmdb?.vote_average}
+            {item?.tmdb?.vote_average.toFixed(1)}
           </div>
         </div>
       </Link>

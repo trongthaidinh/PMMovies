@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const RecentlyUpdated = () => {
+const MoviesByGenre = () => {
   const { data: res } = useGetMovieCategories();
 
   const [slug, setSlug] = useState("");
-  const { data: movieListData } = useGetMovieByCategories(slug);
+  const { data: movieListData, isLoading } = useGetMovieByCategories({ slug });
 
   const [cats, setCats] = useState([
     {
@@ -25,7 +25,7 @@ const RecentlyUpdated = () => {
 
   useEffect(() => {
     if (data) {
-      setCats(data.splice(0, 5));
+      setCats([...data].splice(0, 5));
     }
   }, [data]);
 
@@ -63,11 +63,11 @@ const RecentlyUpdated = () => {
         ))}
       </div>
       <div className="mt-7">
-        <MovieGrid list={movieListData?.data} />
+        <MovieGrid list={movieListData?.data} isLoading={isLoading} />
       </div>
       <Link
         href="#"
-        className="hover:bg-primary/10 mx-auto mt-12 flex w-fit cursor-pointer items-center justify-center rounded-lg border border-primary px-8 py-3 uppercase transition-colors duration-200"
+        className="mx-auto mt-12 flex w-fit cursor-pointer items-center justify-center rounded-lg border border-primary px-8 py-3 uppercase transition-colors duration-200 hover:bg-primary/10"
       >
         view all
       </Link>
@@ -75,4 +75,4 @@ const RecentlyUpdated = () => {
   );
 };
 
-export default RecentlyUpdated;
+export default MoviesByGenre;
