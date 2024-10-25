@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 import { Source_Sans_3 } from "next/font/google";
+import ReactQueryProvider from "./ReactQueryProvider";
 
 import "swiper/css";
 import "./globals.css";
@@ -22,11 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${sourceSans3.className} antialiased`}>
-        <Header />
-        <main className="pt-safe">{children}</main>
-        <Footer />
+        <ReactQueryProvider>
+          <Header />
+          <main className="pt-safe">{children}</main>
+          <Footer />
+        </ReactQueryProvider>
       </body>
     </html>
   );
