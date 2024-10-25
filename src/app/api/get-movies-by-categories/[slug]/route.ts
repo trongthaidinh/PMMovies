@@ -2,10 +2,7 @@ import { axiosServer } from "@/config/axios";
 import { responseJson } from "@/utils/response-json";
 import { NextRequest } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { slug: string } },
-) {
+export async function GET(req: NextRequest, { params }: any) {
   const { slug } = params;
   const page = Number(req.nextUrl.searchParams.get("page"));
 
