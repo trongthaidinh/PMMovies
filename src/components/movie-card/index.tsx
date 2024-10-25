@@ -3,23 +3,20 @@ import Image from "../Image";
 import Link from "next/link";
 import { Bookmark, PlayIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { IMAGE_URL } from "@/constants/base";
 
 type Props = {
-  item: {
-    id: string;
-    title: string;
-    category: string;
-    thumbnail: string;
-    rate: number;
-  };
+  item: any;
   className?: string;
 };
 
 const MovieCard = ({ item, className }: Props) => {
+  console.log("IMAGE_URL ", IMAGE_URL);
+
   return (
     <div className={cn(className)}>
       <Link
-        href={`/movie/${item.id}`}
+        href={`/movie/${item?._id}`}
         className="relative block overflow-hidden rounded-lg [&:hover_.overlay]:opacity-100"
       >
         <div className="z-1 overlay absolute inset-0 flex size-full items-center justify-center bg-black/50 p-3 opacity-0 transition-all duration-[250ms] ease-in">
@@ -40,32 +37,36 @@ const MovieCard = ({ item, className }: Props) => {
         </div>
         <div>
           <Image
-            src={item.thumbnail}
+            src={`https://img.ophim.live/uploads/movies/${item.thumb_url}`}
             className="w-full object-cover object-center"
           />
           <div
             className="absolute left-3 top-3 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 font-medium backdrop-blur-md"
             style={{
               borderColor:
-                item.rate >= 7 ? "green" : item.rate >= 5 ? "yellow" : "red",
+                item?.tmdb?.vote_average >= 7
+                  ? "green"
+                  : item.rate >= 5
+                    ? "yellow"
+                    : "red",
             }}
           >
-            {item.rate}
+            {item?.tmdb?.vote_average}
           </div>
         </div>
       </Link>
       <div className="mt-3">
         <Link
-          href={`/movie/${item.id}`}
+          href={`/movie/${item?._id}`}
           className="line-clamp-1 block text-xl transition-colors duration-150 hover:text-primary"
         >
-          {item.title}
+          {item?.name}
         </Link>
         <Link
-          href={`/category/${item.category}`}
+          href={`/get-movies-by-categories/${item?.category?.[0]?.slug || ""}`}
           className="mt-1 text-lg text-primary decoration-[1.5px] hover:underline"
         >
-          {item.category}
+          {item?.category?.[0]?.name} - {item?.country?.[0]?.name}
         </Link>
       </div>
     </div>

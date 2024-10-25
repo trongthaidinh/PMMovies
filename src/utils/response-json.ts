@@ -24,8 +24,10 @@ export const responseJson = ({
   code = 200,
   message = HttpStatus[code],
 }: Props) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { APP_DOMAIN_FRONTEND, APP_DOMAIN_CDN_IMAGE, ...rest } = data;
   return {
-    data,
+    data: rest,
     code,
     message: message || HttpStatus[code],
   };

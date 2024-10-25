@@ -1,53 +1,61 @@
 "use client";
 
 import MovieGrid from "@/components/MovieGrid";
-import { newItems } from "@/constants";
+import useGetMovieByCategories from "@/hooks/api/useGetMovieByCategories";
+import useGetMovieCategories from "@/hooks/api/useGetMovieCategories";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React, { useState } from "react";
-
-const cats = [
-  {
-    id: "1",
-    label: "new items",
-  },
-  {
-    id: "2",
-    label: "movies",
-  },
-  {
-    id: "3",
-    label: "tv shows",
-  },
-  {
-    id: "4",
-    label: "anime",
-  },
-];
+import React, { useEffect, useState } from "react";
 
 const RecentlyUpdated = () => {
-  const [tab, setTab] = useState(cats[0].id);
+  const { data: res } = useGetMovieCategories();
+
+  const [slug, setSlug] = useState("");
+  const { data: movieListData } = useGetMovieByCategories(slug);
+
+  const [cats, setCats] = useState([
+    {
+      _id: "",
+      name: "",
+      slug: "",
+    },
+  ]);
+  const [tabIdx, setTabIdx] = useState(0);
+  const { data } = res || {};
+
+  useEffect(() => {
+    if (data) {
+      setCats(data.splice(0, 5));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    const catChosen = cats[tabIdx];
+    if (catChosen) {
+      setSlug(catChosen.slug || "");
+    }
+  }, [cats, tabIdx]);
 
   return (
     <div>
       <div className="mt-3 flex items-center space-x-9">
-        {cats.map((item) => (
+        {cats.map((item, idx) => (
           <button
-            key={item.id}
+            key={item?._id}
             className={cn(
               "relative block h-8 uppercase transition-colors duration-100 hover:text-primary",
               {
-                "text-primary": item.id === tab,
+                "text-primary": tabIdx === idx,
               },
             )}
-            onClick={() => setTab(item.id)}
+            onClick={() => setTabIdx(idx)}
           >
-            <span className="z-1 relative">{item.label}</span>
+            <span className="z-1 relative">{item?.name}</span>
             <div
               className={cn(
                 "absolute left-0 top-full h-0.5 w-full rounded-full bg-primary opacity-0",
                 {
-                  "opacity-100": item.id === tab,
+                  "opacity-100": tabIdx === idx,
                 },
               )}
             />
@@ -55,7 +63,7 @@ const RecentlyUpdated = () => {
         ))}
       </div>
       <div className="mt-7">
-        <MovieGrid list={newItems} />
+        <MovieGrid list={movieListData?.data} />
       </div>
       <Link
         href="#"

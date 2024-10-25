@@ -3,7 +3,7 @@ import { IResponseJson } from "@/utils/response-json";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetMovieCategories = () => {
-  const { data } = useQuery({
+  const { data, status } = useQuery({
     queryKey: ["movie_categories"],
     queryFn: async () => {
       try {
