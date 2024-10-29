@@ -6,6 +6,7 @@ import useGetMovieCategories from "@/hooks/api/useGetMovieCategories";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import GenreDropdown from "./GenreDropdown";
 
 const MoviesByGenre = () => {
   const { data: res } = useGetMovieCategories();
@@ -13,13 +14,7 @@ const MoviesByGenre = () => {
   const [slug, setSlug] = useState("");
   const { data: movieListData, isLoading } = useGetMovieByCategories({ slug });
 
-  const [cats, setCats] = useState([
-    {
-      _id: "",
-      name: "",
-      slug: "",
-    },
-  ]);
+  const [cats, setCats] = useState<{ _id: string; name: string; slug: string }[]>([]);
   const [tabIdx, setTabIdx] = useState(0);
   const { data } = res || {};
 
@@ -38,15 +33,16 @@ const MoviesByGenre = () => {
 
   return (
     <div>
-      <div className="mt-3 flex items-center space-x-9">
+      <div className="md:hidden">
+        <GenreDropdown cats={cats} setSlug={setSlug} setTabIdx={setTabIdx} />
+      </div>
+      <div className="hidden md:flex mt-3 items-center space-x-9">
         {cats.map((item, idx) => (
           <button
             key={item?._id}
             className={cn(
               "relative block h-8 uppercase transition-colors duration-100 hover:text-primary",
-              {
-                "text-primary": tabIdx === idx,
-              },
+              { "text-primary": tabIdx === idx }
             )}
             onClick={() => setTabIdx(idx)}
           >
@@ -54,14 +50,13 @@ const MoviesByGenre = () => {
             <div
               className={cn(
                 "absolute left-0 top-full h-0.5 w-full rounded-full bg-primary opacity-0",
-                {
-                  "opacity-100": tabIdx === idx,
-                },
+                { "opacity-100": tabIdx === idx }
               )}
             />
           </button>
         ))}
       </div>
+
       <div className="mt-7">
         <MovieGrid list={movieListData?.data} isLoading={isLoading} />
       </div>

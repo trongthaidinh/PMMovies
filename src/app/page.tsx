@@ -12,7 +12,7 @@ export default function Home() {
         />
       </section>
       <section className="py-14">
-        <h1 className="text-4xl uppercase">movies by genre</h1>
+        <h1 className="text-4xl uppercase max-md:pb-3">movies by genre</h1>
         <RecentlyUpdated />
       </section>
       <section className="py-14">
