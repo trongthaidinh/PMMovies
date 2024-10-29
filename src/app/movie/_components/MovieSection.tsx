@@ -31,7 +31,7 @@ const MovieSection = ({ title, slug, path }: Props) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-6">
+      <div className="flex items-center justify-between">
         <h2 className="text-4xl uppercase">{title}</h2>
         <div className="flex items-center gap-5">
           <button
