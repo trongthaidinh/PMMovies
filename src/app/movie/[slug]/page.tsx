@@ -152,7 +152,7 @@ const MovieDetailPage = ({ params }: { params: Usable<PageParams> }) => {
               <span>{new Date(movie.modified.time).toLocaleDateString()}</span>
             </div>
 
-            {movie.imdb.id && (
+            {/* {movie.imdb.id && (
               <div>
                 <span className="font-semibold">IMDB ID: </span>
                 <a
@@ -164,7 +164,7 @@ const MovieDetailPage = ({ params }: { params: Usable<PageParams> }) => {
                   {movie.imdb.id}
                 </a>
               </div>
-            )}
+            )} */}
           </div>
 
           <div>
