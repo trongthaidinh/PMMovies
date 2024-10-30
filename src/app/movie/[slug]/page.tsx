@@ -6,6 +6,7 @@ import { IMAGE_URL } from "@/constants/base";
 import Link from "next/link";
 import Image from "@/components/Image";
 import { use, Usable } from "react";
+import { useState } from "react";
 
 interface PageParams {
   slug: string;
@@ -15,6 +16,9 @@ const MovieDetailPage = ({ params }: { params: Usable<PageParams> }) => {
   const unwrappedParams = use(params) as PageParams;
   const { data: res, isLoading } = useGetMovieDetail(unwrappedParams.slug);
   const movie = res?.data?.item;
+
+  const [currentServer, setCurrentServer] = useState(0);
+  const [currentEpisode, setCurrentEpisode] = useState(0);
 
   if (isLoading) {
     return (
@@ -177,14 +181,23 @@ const MovieDetailPage = ({ params }: { params: Usable<PageParams> }) => {
         <div className="mt-8">
           <h3 className="mb-4 text-xl font-semibold">Xem phim</h3>
           <div className="space-y-4">
-            {movie.episodes.map((server, idx) => (
-              <div key={idx}>
+            {movie.episodes.map((server, serverIdx) => (
+              <div key={serverIdx}>
                 <h4 className="mb-2 font-medium">{server.server_name}</h4>
                 <div className="flex flex-wrap gap-2">
                   {server.server_data.map((episode, episodeIdx) => (
                     <button
                       key={episodeIdx}
-                      className="rounded bg-dark-1 px-4 py-2 hover:bg-primary"
+                      className={`rounded px-4 py-2 ${
+                        currentServer === serverIdx &&
+                        currentEpisode === episodeIdx
+                          ? "bg-primary"
+                          : "bg-dark-1 hover:bg-primary"
+                      }`}
+                      onClick={() => {
+                        setCurrentServer(serverIdx);
+                        setCurrentEpisode(episodeIdx);
+                      }}
                     >
                       {episode.name}
                     </button>
@@ -196,10 +209,14 @@ const MovieDetailPage = ({ params }: { params: Usable<PageParams> }) => {
         </div>
       )}
 
-      {movie.episodes[0]?.server_data[0]?.link_embed && (
+      {movie.episodes[currentServer]?.server_data[currentEpisode]
+        ?.link_embed && (
         <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-lg">
           <iframe
-            src={movie.episodes[0].server_data[0].link_embed}
+            src={
+              movie.episodes[currentServer].server_data[currentEpisode]
+                .link_embed
+            }
             className="absolute left-0 top-0 h-full w-full"
             allowFullScreen
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
