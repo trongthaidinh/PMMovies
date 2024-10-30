@@ -1,6 +1,7 @@
 "use client";
 
 import { MoveUp } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const list = [
@@ -19,8 +20,14 @@ const Footer = () => {
     <div className="mt-16 border-t border-t-dark-1">
       <div className="container flex h-20 items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link href="#" className="text-4xl">
-            LOGO
+          <Link href="/" className="text-4xl">
+            <Image
+              src="/images/logo.png"
+              alt="logo"
+              width={60}
+              height={60}
+              priority
+            />
           </Link>
           <span className="text-xs">© LOGO, 2024</span>
         </div>

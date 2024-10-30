@@ -7,11 +7,18 @@
   --color-primary: #f9ab00;
 
   --header-height: 80px;
+  --container-width: 1200px;
 }
 
 body {
   background-color: var(--bg-primary);
   color: white;
+}
+
+.container {
+  max-width: var(--container-width);
+  width: 100%;
+  margin: 0 auto;
 }
 
 button,
