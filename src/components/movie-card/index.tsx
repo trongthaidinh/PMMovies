@@ -14,7 +14,7 @@ const MovieCard = ({ item, className }: Props) => {
   return (
     <div className={cn("flex size-full flex-col", className)}>
       <Link
-        href={`/movie/${item?._id}`}
+        href={`/movie/${item?.slug}`}
         className="relative block flex-1 overflow-hidden rounded-lg [&:hover_.overlay]:opacity-100"
       >
         <div className="z-1 overlay absolute inset-0 flex size-full items-center justify-center bg-black/50 p-3 opacity-0 transition-all duration-[250ms] ease-in">
@@ -56,7 +56,7 @@ const MovieCard = ({ item, className }: Props) => {
       </Link>
       <div className="mt-3">
         <Link
-          href={`/movie/${item?._id}`}
+          href={`/movie/${item?.slug}`}
           className="block w-full overflow-hidden text-ellipsis whitespace-nowrap text-xl transition-colors duration-150 hover:text-primary"
         >
           {item?.name}
