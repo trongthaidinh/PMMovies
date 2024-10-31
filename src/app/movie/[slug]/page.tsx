@@ -54,9 +54,9 @@ const MovieDetailPage = ({ params }: { params: Usable<PageParams> }) => {
         <div className="space-y-4">
           <div className="aspect-[2/3] overflow-hidden rounded-lg">
             <Image
-              src={`${IMAGE_URL}/${movie.poster_url}`}
+              src={`${IMAGE_URL}/${movie.thumb_url}`}
               alt={movie.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-center"
             />
           </div>
 

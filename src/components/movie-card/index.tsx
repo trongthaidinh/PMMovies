@@ -39,19 +39,21 @@ const MovieCard = ({ item, className }: Props) => {
             className="size-full object-cover object-center"
             alt={item?.name}
           />
-          <div
-            className="absolute left-3 top-3 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 text-sm font-medium backdrop-blur-md"
-            style={{
-              borderColor:
-                item?.tmdb?.vote_average >= 7
-                  ? "green"
-                  : item.rate >= 5
-                    ? "yellow"
-                    : "red",
-            }}
-          >
-            {item?.tmdb?.vote_average.toFixed(1)}
-          </div>
+          {item?.tmdb?.vote_average && (
+            <div
+              className="absolute left-3 top-3 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 text-sm font-medium backdrop-blur-md"
+              style={{
+                borderColor:
+                  item.tmdb.vote_average >= 7
+                    ? "green"
+                    : item.tmdb.vote_average >= 5
+                      ? "yellow"
+                      : "red",
+              }}
+            >
+              {item.tmdb.vote_average.toFixed(1)}
+            </div>
+          )}
         </div>
       </Link>
       <div className="mt-3">
