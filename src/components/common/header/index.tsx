@@ -8,8 +8,11 @@ import CountryList from "./CountryList";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import AuthButtons from "./AuthButtons";
 
 const Header = () => {
+  const { user, isLoading } = useAuth();
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
 
@@ -78,7 +81,9 @@ const Header = () => {
             <Search className="size-4" />
           </button>
         </form>
-        <UserBox />
+        <div className="flex items-center gap-4">
+          {!isLoading && (user ? <UserBox /> : <AuthButtons />)}
+        </div>
       </div>
     </header>
   );

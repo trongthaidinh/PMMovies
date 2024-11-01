@@ -15,6 +15,10 @@ export const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error: AxiosError) => Promise.reject(error),

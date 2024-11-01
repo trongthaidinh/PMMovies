@@ -7,6 +7,9 @@ import Link from "next/link";
 import Image from "@/components/Image";
 import { use, Usable } from "react";
 import { useState } from "react";
+import CommentForm from "@/components/comments/CommentForm";
+import CommentList from "@/components/comments/CommentList";
+import { useComments } from "@/hooks/api/useComments";
 
 interface PageParams {
   slug: string;
@@ -19,6 +22,12 @@ const MovieDetailPage = ({ params }: { params: Usable<PageParams> }) => {
 
   const [currentServer, setCurrentServer] = useState(0);
   const [currentEpisode, setCurrentEpisode] = useState(0);
+
+  const {
+    comments,
+    isLoading: commentsLoading,
+    addComment,
+  } = useComments(movie?.slug || "");
 
   if (isLoading) {
     return (
@@ -224,6 +233,17 @@ const MovieDetailPage = ({ params }: { params: Usable<PageParams> }) => {
           />
         </div>
       )}
+      <div className="mt-8">
+        <h3 className="mb-4 text-xl font-semibold">Bình luận</h3>
+        <div className="space-y-6">
+          <CommentForm
+            onSubmit={async (content) => {
+              await addComment(content);
+            }}
+          />
+          <CommentList comments={comments} isLoading={commentsLoading} />
+        </div>
+      </div>
     </div>
   );
 };
