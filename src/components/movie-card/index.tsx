@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Bookmark, PlayIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { IMAGE_URL } from "@/constants/base";
+import { useBookmark } from "@/hooks/api/useBookmark";
 
 type Props = {
   item: any;
@@ -11,6 +12,20 @@ type Props = {
 };
 
 const MovieCard = ({ item, className }: Props) => {
+  const { isBookmarked, addBookmark, removeBookmark } = useBookmark();
+  const bookmarked = isBookmarked(item?.slug);
+
+  const handleBookmark = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (bookmarked) {
+      removeBookmark(item?.slug);
+    } else {
+      addBookmark(item);
+    }
+  };
+
   return (
     <div className={cn("flex size-full flex-col", className)}>
       <Link
@@ -19,13 +34,17 @@ const MovieCard = ({ item, className }: Props) => {
       >
         <div className="z-1 overlay absolute inset-0 flex size-full items-center justify-center bg-black/50 p-3 opacity-0 transition-all duration-[250ms] ease-in">
           <button
-            className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-md bg-black"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
+            className={cn(
+              "absolute right-3 top-3 flex size-9 items-center justify-center rounded-md transition-colors",
+              bookmarked ? "bg-primary" : "bg-black hover:bg-primary/80",
+            )}
+            onClick={handleBookmark}
           >
-            <Bookmark className="size-5" strokeWidth={1.75} />
+            <Bookmark
+              className="size-5"
+              strokeWidth={1.75}
+              fill={bookmarked ? "white" : "none"}
+            />
           </button>
           <div className="size-16 rounded-full bg-white/10 p-1.5 transition-colors duration-200 hover:bg-primary/30">
             <button className="flex size-full items-center justify-center rounded-full bg-white">
