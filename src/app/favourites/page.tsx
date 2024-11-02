@@ -1,38 +1,45 @@
 "use client";
 
-import MovieGrid from "@/components/MovieGrid";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { useBookmark } from "@/hooks/api/useBookmark";
+import MovieGrid from "@/components/MovieGrid";
 
-export default function FavouritesPage() {
+function FavouritesContent() {
+  const searchParams = useSearchParams();
   const { bookmarks, isLoading } = useBookmark();
+  const page = Number(searchParams?.get("page")) || 1;
+  const itemsPerPage = 24;
 
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {Array.from({ length: 10 }).map((_, idx) => (
-          <div key={idx} className="flex flex-col gap-4">
-            <div className="aspect-[2/3] animate-pulse rounded-lg bg-dark-1" />
-            <div className="space-y-2">
-              <div className="h-5 w-3/4 animate-pulse rounded bg-dark-1" />
-              <div className="h-4 w-1/2 animate-pulse rounded bg-dark-1" />
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
+  const paginatedBookmarks = bookmarks.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage,
+  );
 
   return (
     <div className="container py-[calc(var(--header-height))]">
       <h1 className="mb-8 text-2xl font-bold">Phim yêu thích</h1>
-
-      {bookmarks.length === 0 ? (
-        <div className="text-center text-gray-400">
-          Chưa có phim nào được lưu
-        </div>
-      ) : (
-        <MovieGrid list={bookmarks} isLoading={false} />
-      )}
+      <MovieGrid
+        list={paginatedBookmarks}
+        isLoading={isLoading}
+        pagination={{
+          currentPage: page,
+          totalPages: Math.ceil(bookmarks.length / itemsPerPage),
+          onPageChange: (newPage) => {
+            const url = new URL(window.location.href);
+            url.searchParams.set("page", String(newPage));
+            window.history.pushState({}, "", url);
+          },
+        }}
+      />
     </div>
+  );
+}
+
+export default function FavouritesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <FavouritesContent />
+    </Suspense>
   );
 }
