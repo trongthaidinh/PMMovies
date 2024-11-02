@@ -37,7 +37,7 @@ const Header = () => {
             <button onClick={() => setShowSearch(!showSearch)}>
               <Search className="size-6" />
             </button>
-            {!isLoading && user && <UserBox />}
+            {!isLoading && (user ? <UserBox /> : <AuthButtons isMobile />)}
           </div>
         </div>
 
