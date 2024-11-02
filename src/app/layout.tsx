@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { defaultMetadata } from "@/lib/meta";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 import { Source_Sans_3 } from "next/font/google";
@@ -10,17 +11,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "swiper/css";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "PM Movies",
-  description: "PM Movies",
-  icons: {
-    icon: "/favicon.ico",
-    apple: [
-      { url: "/apple-icon.png" },
-      { url: "/apple-icon-180.png", sizes: "180x180", type: "image/png" },
-    ],
-  },
-};
+export const metadata: Metadata = defaultMetadata;
 
 const sourceSans3 = Source_Sans_3({
   subsets: ["latin"],
