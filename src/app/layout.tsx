@@ -27,12 +27,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <GoogleAnalytics />
-        <script
+        {/* <script
           src="https://alwingulla.com/88/tag.min.js"
           data-zone="111794"
           async
           data-cfasync="false"
-        ></script>
+        ></script> */}
       </head>
       <body className={`${sourceSans3.className} antialiased`}>
         <ReactQueryProvider>
