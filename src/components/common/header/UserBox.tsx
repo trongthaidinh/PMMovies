@@ -1,48 +1,58 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { LogOut, User, Heart } from "lucide-react";
 import Link from "next/link";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import Image from "next/image";
 
 const UserBox = () => {
+  const { user, logout } = useAuth();
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="h-full">
-        <div className="flex h-full max-w-[140px] cursor-pointer items-center justify-center rounded-lg border border-primary px-4 transition-colors duration-200 hover:bg-primary/10">
-          <p className="w-full overflow-hidden text-ellipsis whitespace-nowrap uppercase">
-            USERNAME
-          </p>
-          <ChevronDown />
+    <div className="group relative">
+      <div className="flex cursor-pointer items-center gap-2">
+        <div className="relative size-8 overflow-hidden rounded-full bg-dark-1">
+          {user?.avatar ? (
+            <Image
+              src={user.avatar}
+              alt="Avatar"
+              fill
+              className="object-cover"
+              sizes="32px"
+            />
+          ) : (
+            <User className="size-full p-1.5" />
+          )}
         </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        className="w-[200px] rounded-lg bg-dark-1 !outline-none"
-        align="end"
-      >
-        <DropdownMenuItem>
-          <Link href="/profile" className="block w-full border-none px-2 py-1">
-            Profile
+        <span className="hidden text-sm lg:block">{user?.username}</span>
+      </div>
+
+      <div className="absolute right-0 top-full hidden pt-2 group-hover:block">
+        <div className="min-w-[200px] overflow-hidden rounded-lg bg-dark-1 shadow-lg">
+          <Link
+            href="/profile"
+            className="hover:bg-dark-2 flex items-center gap-2 px-4 py-2 transition-colors"
+          >
+            <User className="size-4" />
+            Thông tin cá nhân
           </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="/archived" className="block w-full border-none px-2 py-1">
-            Archived
+          <Link
+            href="/favourites"
+            className="hover:bg-dark-2 flex items-center gap-2 px-4 py-2 transition-colors"
+          >
+            <Heart className="size-4" />
+            Phim yêu thích
           </Link>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href="/logout" className="block w-full border-none px-2 py-1">
-            Logout
-          </Link>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <button
+            onClick={logout}
+            className="hover:bg-dark-2 flex w-full items-center gap-2 px-4 py-2 text-red-500 transition-colors"
+          >
+            <LogOut className="size-4" />
+            Đăng xuất
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
