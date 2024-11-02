@@ -11,7 +11,7 @@ const UserBox = () => {
   return (
     <div className="group relative">
       <div className="flex cursor-pointer items-center gap-2">
-        <div className="relative size-8 overflow-hidden rounded-full">
+        <div className="relative size-8 overflow-hidden rounded-full bg-dark-1">
           {user?.avatar ? (
             <Image
               src={user.avatar}
@@ -21,10 +21,10 @@ const UserBox = () => {
               sizes="32px"
             />
           ) : (
-            <User className="size-full p-1" />
+            <User className="size-full p-1.5" />
           )}
         </div>
-        <span className="text-sm">{user?.username}</span>
+        <span className="hidden text-sm lg:block">{user?.username}</span>
       </div>
 
       <div className="absolute right-0 top-full hidden pt-2 group-hover:block">

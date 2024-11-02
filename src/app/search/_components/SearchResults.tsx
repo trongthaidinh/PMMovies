@@ -13,7 +13,7 @@ const SearchResults = ({ keyword }: Props) => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4">
         {Array.from({ length: 10 }).map((_, idx) => (
           <div key={idx} className="flex flex-col gap-4">
             <div className="aspect-[2/3] animate-pulse rounded-lg bg-dark-1" />

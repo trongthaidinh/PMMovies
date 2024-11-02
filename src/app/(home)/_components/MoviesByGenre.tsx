@@ -14,7 +14,9 @@ const MoviesByGenre = () => {
   const [slug, setSlug] = useState("");
   const { data: movieListData, isLoading } = useGetMovieByCategories({ slug });
 
-  const [cats, setCats] = useState<{ _id: string; name: string; slug: string }[]>([]);
+  const [cats, setCats] = useState<
+    { _id: string; name: string; slug: string }[]
+  >([]);
   const [tabIdx, setTabIdx] = useState(0);
   const { data } = res || {};
 
@@ -36,13 +38,13 @@ const MoviesByGenre = () => {
       <div className="md:hidden">
         <GenreDropdown cats={cats} setSlug={setSlug} setTabIdx={setTabIdx} />
       </div>
-      <div className="hidden md:flex mt-3 items-center space-x-9">
+      <div className="mt-3 hidden items-center space-x-9 md:flex">
         {cats.map((item, idx) => (
           <button
             key={item?._id}
             className={cn(
               "relative block h-8 uppercase transition-colors duration-100 hover:text-primary",
-              { "text-primary": tabIdx === idx }
+              { "text-primary": tabIdx === idx },
             )}
             onClick={() => setTabIdx(idx)}
           >
@@ -50,7 +52,7 @@ const MoviesByGenre = () => {
             <div
               className={cn(
                 "absolute left-0 top-full h-0.5 w-full rounded-full bg-primary opacity-0",
-                { "opacity-100": tabIdx === idx }
+                { "opacity-100": tabIdx === idx },
               )}
             />
           </button>
@@ -61,7 +63,7 @@ const MoviesByGenre = () => {
         <MovieGrid list={movieListData?.data} isLoading={isLoading} />
       </div>
       <Link
-        href="#"
+        href="/the-loai?category=hanh-dong"
         className="mx-auto mt-12 flex w-fit cursor-pointer items-center justify-center rounded-lg border border-primary px-8 py-3 uppercase transition-colors duration-200 hover:bg-primary/10"
       >
         view all
