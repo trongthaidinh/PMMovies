@@ -33,6 +33,11 @@ export default function RootLayout({
           async
           data-cfasync="false"
         ></script> */}
+        <script
+          src="https://pertawee.net/act/files/tag.min.js?z=8455930"
+          data-cfasync="false"
+          async
+        ></script>
       </head>
       <body className={`${sourceSans3.className} antialiased`}>
         <ReactQueryProvider>
