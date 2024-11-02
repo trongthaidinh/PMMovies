@@ -5,7 +5,7 @@ import Loader from "@/components/Loader";
 import { IMAGE_URL } from "@/constants/base";
 import Link from "next/link";
 import Image from "@/components/Image";
-import { use, Usable } from "react";
+import { use } from "react";
 import { useState } from "react";
 import CommentForm from "@/components/comments/CommentForm";
 import CommentList from "@/components/comments/CommentList";
@@ -15,8 +15,12 @@ interface PageParams {
   slug: string;
 }
 
-const MovieDetailPage = ({ params }: { params: Usable<PageParams> }) => {
-  const unwrappedParams = use(params) as PageParams;
+interface Props {
+  params: Promise<PageParams>;
+}
+
+const MovieDetailPage = ({ params }: Props) => {
+  const unwrappedParams = use(params);
   const { data: res, isLoading } = useGetMovieDetail(unwrappedParams.slug);
   const movie = res?.data?.item;
 
