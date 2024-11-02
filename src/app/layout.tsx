@@ -5,6 +5,7 @@ import { Source_Sans_3 } from "next/font/google";
 import ReactQueryProvider from "./ReactQueryProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 import "swiper/css";
 import "./globals.css";
@@ -33,6 +34,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body className={`${sourceSans3.className} antialiased`}>
         <ReactQueryProvider>
           <AuthProvider>
