@@ -78,13 +78,13 @@ const MovieCard = ({ item, className }: Props) => {
       <div className="mt-3">
         <Link
           href={`/movie/${item?.slug}`}
-          className="block w-full overflow-hidden text-ellipsis whitespace-nowrap text-xl transition-colors duration-150 hover:text-primary"
+          className="block w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm transition-colors duration-150 hover:text-primary lg:text-xl"
         >
           {item?.name}
         </Link>
         <Link
           href={`/get-movies-by-categories/${item?.category?.[0]?.slug || ""}`}
-          className="mt-1 text-lg text-primary decoration-[1.5px] hover:underline"
+          className="mt-1 text-sm text-primary decoration-[1.5px] hover:underline lg:text-lg"
         >
           {item?.category?.[0]?.name} - {item?.country?.[0]?.name}
         </Link>

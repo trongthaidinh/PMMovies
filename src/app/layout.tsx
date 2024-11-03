@@ -27,7 +27,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <GoogleAnalytics />
-
         <link
           rel="icon"
           type="image/png"
