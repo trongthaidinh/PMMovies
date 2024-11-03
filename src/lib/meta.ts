@@ -34,4 +34,9 @@ export const defaultMetadata = {
   alternates: {
     canonical: process.env.SITE_URL,
   },
+  icons: {
+    icon: [{ url: "/favicon.ico" }],
+    apple: [{ url: "/apple-touch-icon.png" }],
+    shortcut: ["/favicon.ico"],
+  },
 };
