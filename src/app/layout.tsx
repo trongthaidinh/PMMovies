@@ -42,12 +42,12 @@ export default function RootLayout({
         />
         <meta name="apple-mobile-web-app-title" content="PM Movies" />
         <link rel="manifest" href="/site.webmanifest" />
-        <script
+        {/* <script
           src="https://alwingulla.com/88/tag.min.js"
           data-zone="111794"
           async
           data-cfasync="false"
-        ></script>
+        ></script> */}
       </head>
       <body className={`${sourceSans3.className} antialiased`}>
         <ReactQueryProvider>

@@ -6,7 +6,7 @@ Disallow: /auth/*
 Disallow: /profile
 
 # Host
-Host: https://phimtrend.id.vn/
+Host: https://localhost:4000
 
 # Sitemaps
-Sitemap: https://phimtrend.id.vn/sitemap.xml
+Sitemap: https://localhost:4000/sitemap.xml
