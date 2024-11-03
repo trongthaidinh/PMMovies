@@ -27,16 +27,27 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <GoogleAnalytics />
-        {/* <script
+
+        <link
+          rel="icon"
+          type="image/png"
+          href="/favicon-96x96.png"
+          sizes="96x96"
+        />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <meta name="apple-mobile-web-app-title" content="PM Movies" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <script
           src="https://alwingulla.com/88/tag.min.js"
           data-zone="111794"
           async
           data-cfasync="false"
-        ></script> */}
-        <script
-          src="https://pertawee.net/act/files/tag.min.js?z=8455930"
-          data-cfasync="false"
-          async
         ></script>
       </head>
       <body className={`${sourceSans3.className} antialiased`}>
