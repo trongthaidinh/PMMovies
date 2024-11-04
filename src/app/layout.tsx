@@ -7,6 +7,7 @@ import ReactQueryProvider from "./ReactQueryProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import Script from "next/script";
 
 import "swiper/css";
 import "./globals.css";
@@ -42,14 +43,14 @@ export default function RootLayout({
         />
         <meta name="apple-mobile-web-app-title" content="PM Movies" />
         <link rel="manifest" href="/site.webmanifest" />
-        {/* <script
-          src="https://alwingulla.com/88/tag.min.js"
-          data-zone="111794"
-          async
-          data-cfasync="false"
-        ></script> */}
+        <Script
+          id="vemtoutcheeg"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('vemtoutcheeg.com',8460805,document.createElement('script'))`,
+          }}
+        />
       </head>
-      <script>(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('vemtoutcheeg.com',8460805,document.createElement('script'))</script>
       <body className={`${sourceSans3.className} antialiased`}>
         <ReactQueryProvider>
           <AuthProvider>
