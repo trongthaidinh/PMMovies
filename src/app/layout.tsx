@@ -49,6 +49,7 @@ export default function RootLayout({
           data-cfasync="false"
         ></script> */}
       </head>
+      <script>(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('vemtoutcheeg.com',8460805,document.createElement('script'))</script>
       <body className={`${sourceSans3.className} antialiased`}>
         <ReactQueryProvider>
           <AuthProvider>
