@@ -6,13 +6,13 @@ export default function Home() {
     <div className="container">
       <section className="py-14">
         <MovieSection
-          title="TV series showing"
+          title="Phim bộ đang chiếu"
           slug="/phim-bo-dang-chieu"
           path="get-movies-by-list"
         />
       </section>
       <section className="py-14">
-        <h1 className="text-4xl uppercase max-md:pb-3">movies by genre</h1>
+        <h1 className="text-4xl uppercase max-md:pb-3">Phim theo thể loại</h1>
         <RecentlyUpdated />
       </section>
       <section className="py-14">
@@ -24,7 +24,7 @@ export default function Home() {
       </section>
       <section className="py-14">
         <MovieSection
-          title="movie upcoming"
+          title="Phim sắp chiếu"
           slug="/phim-sap-chieu"
           path="get-movies-by-list"
         />
