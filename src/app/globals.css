@@ -41,3 +41,8 @@ a {
 .scrollbar-custom::-webkit-scrollbar-thumb {
   @apply bg-primary;
 }
+
+/* Add this to hide the Next.js Image span */
+span[style*="box-sizing: border-box"] {
+  display: none !important;
+}

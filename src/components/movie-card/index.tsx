@@ -1,10 +1,9 @@
 import React from "react";
-import Image from "../Image";
 import Link from "next/link";
 import { Bookmark, PlayIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { IMAGE_URL } from "@/constants/base";
 import { useBookmark } from "@/hooks/api/useBookmark";
+import MovieImage from "../MovieImage";
 
 type Props = {
   item: any;
@@ -30,7 +29,7 @@ const MovieCard = ({ item, className }: Props) => {
     <div className={cn("flex size-full flex-col", className)}>
       <Link
         href={`/movie/${item?.slug}`}
-        className="relative block flex-1 overflow-hidden rounded-lg [&:hover_.overlay]:opacity-100"
+        className="relative block overflow-hidden rounded-lg [&:hover_.overlay]:opacity-100"
       >
         <div className="z-1 overlay absolute inset-0 flex size-full items-center justify-center bg-black/50 p-3 opacity-0 transition-all duration-[250ms] ease-in">
           <button
@@ -52,15 +51,16 @@ const MovieCard = ({ item, className }: Props) => {
             </button>
           </div>
         </div>
-        <div className="size-full">
-          <Image
-            src={`${IMAGE_URL}/${item.thumb_url}`}
-            className="size-full object-cover object-center"
-            alt={item?.name}
+        <div className="relative aspect-[2/3] w-full" style={{ fontSize: 0 }}>
+          <MovieImage
+            src={item.thumb_url}
+            alt={item.name}
+            className="rounded-lg object-cover"
+            priority={false}
           />
           {item?.tmdb?.vote_average && (
             <div
-              className="absolute left-3 top-3 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 text-sm font-medium backdrop-blur-md"
+              className="absolute left-3 top-3 z-10 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 text-sm font-medium backdrop-blur-md"
               style={{
                 borderColor:
                   item.tmdb.vote_average >= 7

@@ -2,14 +2,15 @@
 
 import useGetMovieDetail from "@/hooks/api/useGetMovieDetail";
 import Loader from "@/components/Loader";
-import { IMAGE_URL } from "@/constants/base";
+// import { IMAGE_URL } from "@/constants/base";
 import Link from "next/link";
-import Image from "@/components/Image";
+// import Image from "@/components/Image";
 import { use } from "react";
 import { useState } from "react";
 import CommentForm from "@/components/comments/CommentForm";
 import CommentList from "@/components/comments/CommentList";
 import { useComments } from "@/hooks/api/useComments";
+import MovieImage from "@/components/MovieImage";
 
 interface PageParams {
   slug: string;
@@ -66,10 +67,12 @@ const MovieDetailPage = ({ params }: Props) => {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-[300px_1fr]">
         <div className="space-y-4">
           <div className="aspect-[2/3] overflow-hidden rounded-lg">
-            <Image
-              src={`${IMAGE_URL}/${movie.thumb_url}`}
+            <MovieImage
+              src={movie.thumb_url}
               alt={movie.name}
               className="h-full w-full object-cover object-center"
+              priority
+              fill
             />
           </div>
 

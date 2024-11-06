@@ -7,7 +7,7 @@ import ReactQueryProvider from "./ReactQueryProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
-import Script from "next/script";
+// import Script from "next/script";
 
 import "swiper/css";
 import "./globals.css";
@@ -41,15 +41,15 @@ export default function RootLayout({
           sizes="180x180"
           href="/apple-touch-icon.png"
         />
-        <meta name="apple-mobile-web-app-title" content="PM Movies" />
+        <meta name="apple-mobile-web-app-title" content="Phim Trend" />
         <link rel="manifest" href="/site.webmanifest" />
-        <Script
+        {/* <Script
           id="vemtoutcheeg"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('vemtoutcheeg.com',8460805,document.createElement('script'))`,
           }}
-        />
+        /> */}
       </head>
       <body className={`${sourceSans3.className} antialiased`}>
         <ReactQueryProvider>
