@@ -54,7 +54,7 @@ export default function CategoryPage() {
   }
 
   return (
-    <div className="container py-[calc(var(--header-height))]">
+    <div className="container py-10">
       <h1 className="mb-6 text-2xl font-bold capitalize">
         Phim thể loại: {params.category.replace(/-/g, " ")}
       </h1>

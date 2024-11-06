@@ -32,25 +32,27 @@ const MovieSection = ({ title, slug, path }: Props) => {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="text-4xl uppercase">{title}</h2>
-        <div className="flex items-center gap-5">
+        <h2 className="text-xl uppercase sm:text-2xl md:text-3xl lg:text-4xl">
+          {title}
+        </h2>
+        <div className="flex items-center gap-2 sm:gap-5">
           <button
             disabled={isBeginning}
-            className="flex size-9 items-center justify-center rounded-lg bg-dark-1 transition-colors duration-200 hover:bg-primary/20 disabled:pointer-events-none disabled:opacity-70"
+            className="flex size-8 items-center justify-center rounded-lg bg-dark-1 transition-colors duration-200 hover:bg-primary/20 disabled:pointer-events-none disabled:opacity-70 sm:size-9"
             onClick={slidePrev}
           >
-            <ChevronLeft />
+            <ChevronLeft className="size-5 sm:size-6" />
           </button>
           <button
             disabled={isEnd}
-            className="flex size-9 items-center justify-center rounded-lg bg-dark-1 transition-colors duration-200 hover:bg-primary/20 disabled:pointer-events-none disabled:opacity-70"
+            className="flex size-8 items-center justify-center rounded-lg bg-dark-1 transition-colors duration-200 hover:bg-primary/20 disabled:pointer-events-none disabled:opacity-70 sm:size-9"
             onClick={slideNext}
           >
-            <ChevronRight />
+            <ChevronRight className="size-5 sm:size-6" />
           </button>
         </div>
       </div>
-      <div className="mt-8">
+      <div className="mt-4 sm:mt-8">
         <MovieSwiper ref={swiperRef} list={data?.data} />
       </div>
     </div>

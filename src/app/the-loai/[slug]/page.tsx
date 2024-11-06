@@ -39,7 +39,7 @@ export default function CategoryPage({ params }: Props) {
   const slug = resolvedParams.slug;
 
   return (
-    <div className="container py-[calc(var(--header-height))]">
+    <div className="container py-10">
       <CategoryPageClient slug={slug} />
     </div>
   );

@@ -14,7 +14,7 @@ export default function CountryPage({ params }: Props) {
   const slug = resolvedParams.slug;
 
   return (
-    <div className="container py-[calc(var(--header-height))]">
+    <div className="container py-10">
       <CountryPageClient slug={slug} />
     </div>
   );

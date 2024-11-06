@@ -8,7 +8,7 @@ export default function SearchPage() {
   const keyword = searchParams?.get("keyword") || "";
 
   return (
-    <div className="container py-[calc(var(--header-height))]">
+    <div className="container py-10">
       <h1 className="mb-8 text-2xl font-bold">
         Kết quả tìm kiếm cho: {keyword}
       </h1>
