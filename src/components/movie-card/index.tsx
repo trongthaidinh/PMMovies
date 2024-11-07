@@ -83,7 +83,7 @@ const MovieCard = ({ item, className }: Props) => {
           {item?.name}
         </Link>
         <Link
-          href={`/get-movies-by-categories/${item?.category?.[0]?.slug || ""}`}
+          href={`/the-loai/${item?.category?.[0]?.slug || ""}`}
           className="mt-1 text-sm text-primary decoration-[1.5px] hover:underline lg:text-lg"
         >
           {item?.category?.[0]?.name} - {item?.country?.[0]?.name}
