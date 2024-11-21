@@ -27,11 +27,8 @@ const MovieCard = ({ item, className }: Props) => {
 
   return (
     <div className={cn("flex size-full flex-col", className)}>
-      <Link
-        href={`/movie/${item?.slug}`}
-        className="relative block overflow-hidden rounded-lg [&:hover_.overlay]:opacity-100"
-      >
-        <div className="z-1 overlay absolute inset-0 flex size-full items-center justify-center bg-black/50 p-3 opacity-0 transition-all duration-[250ms] ease-in">
+      <div className="group relative block overflow-hidden rounded-lg">
+        <div className="absolute inset-0 z-10 opacity-0 transition-all duration-[250ms] ease-in group-hover:opacity-100">
           <button
             className={cn(
               "absolute right-3 top-3 flex size-9 items-center justify-center rounded-md transition-colors",
@@ -45,36 +42,40 @@ const MovieCard = ({ item, className }: Props) => {
               fill={bookmarked ? "white" : "none"}
             />
           </button>
-          <div className="size-16 rounded-full bg-white/10 p-1.5 transition-colors duration-200 hover:bg-primary/30">
-            <button className="flex size-full items-center justify-center rounded-full bg-white">
-              <PlayIcon className="size-7 text-primary" />
-            </button>
-          </div>
         </div>
-        <div className="relative aspect-[2/3] w-full" style={{ fontSize: 0 }}>
-          <MovieImage
-            src={item.thumb_url}
-            alt={item.name}
-            className="rounded-lg object-cover"
-            priority={false}
-          />
-          {item?.tmdb?.vote_average && (
-            <div
-              className="absolute left-3 top-3 z-10 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 text-sm font-medium backdrop-blur-md"
-              style={{
-                borderColor:
-                  item.tmdb.vote_average >= 7
-                    ? "green"
-                    : item.tmdb.vote_average >= 5
-                      ? "yellow"
-                      : "red",
-              }}
-            >
-              {item.tmdb.vote_average.toFixed(1)}
+        <Link href={`/movie/${item?.slug}`} className="block">
+          <div className="relative aspect-[2/3] w-full" style={{ fontSize: 0 }}>
+            <MovieImage
+              src={item.thumb_url}
+              alt={item.name}
+              className="rounded-lg object-cover"
+              priority={false}
+            />
+            {item?.tmdb?.vote_average && (
+              <div
+                className="absolute left-3 top-3 z-10 flex size-9 items-center justify-center rounded-full border-2 bg-black/50 text-sm font-medium backdrop-blur-md"
+                style={{
+                  borderColor:
+                    item.tmdb.vote_average >= 7
+                      ? "green"
+                      : item.tmdb.vote_average >= 5
+                        ? "yellow"
+                        : "red",
+                }}
+              >
+                {item.tmdb.vote_average.toFixed(1)}
+              </div>
+            )}
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 opacity-0 transition-all duration-[250ms] ease-in group-hover:opacity-100">
+              <div className="size-16 rounded-full bg-white/10 p-1.5 transition-colors duration-200 hover:bg-primary/30">
+                <div className="flex size-full items-center justify-center rounded-full bg-white">
+                  <PlayIcon className="size-7 text-primary" />
+                </div>
+              </div>
             </div>
-          )}
-        </div>
-      </Link>
+          </div>
+        </Link>
+      </div>
       <div className="mt-3">
         <Link
           href={`/movie/${item?.slug}`}
