@@ -28,21 +28,19 @@ const MovieCard = ({ item, className }: Props) => {
   return (
     <div className={cn("flex size-full flex-col", className)}>
       <div className="group relative block overflow-hidden rounded-lg">
-        <div className="absolute inset-0 z-10 opacity-0 transition-all duration-[250ms] ease-in group-hover:opacity-100">
-          <button
-            className={cn(
-              "absolute right-3 top-3 flex size-9 items-center justify-center rounded-md transition-colors",
-              bookmarked ? "bg-primary" : "bg-black hover:bg-primary/80",
-            )}
-            onClick={handleBookmark}
-          >
-            <Bookmark
-              className="size-5"
-              strokeWidth={1.75}
-              fill={bookmarked ? "white" : "none"}
-            />
-          </button>
-        </div>
+        <button
+          className={cn(
+            "absolute right-3 top-3 z-20 flex size-9 items-center justify-center rounded-md opacity-0 transition-all duration-[250ms] group-hover:opacity-100",
+            bookmarked ? "bg-primary" : "bg-black hover:bg-primary/80",
+          )}
+          onClick={handleBookmark}
+        >
+          <Bookmark
+            className="size-5"
+            strokeWidth={1.75}
+            fill={bookmarked ? "white" : "none"}
+          />
+        </button>
         <Link href={`/movie/${item?.slug}`} className="block">
           <div className="relative aspect-[2/3] w-full" style={{ fontSize: 0 }}>
             <MovieImage
