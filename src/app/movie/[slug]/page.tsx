@@ -71,8 +71,6 @@ const MovieDetailPage = ({ params }: Props) => {
               src={movie.thumb_url}
               alt={movie.name}
               className="h-full w-full object-cover object-center"
-              priority
-              fill
             />
           </div>
 
