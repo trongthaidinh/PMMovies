@@ -46,7 +46,7 @@ const MovieCard = ({ item, className }: Props) => {
             <MovieImage
               src={item.thumb_url}
               alt={item.name}
-              className="rounded-lg object-cover"
+              className="h-full w-full rounded-lg object-cover"
             />
             {item?.tmdb?.vote_average && (
               <div
