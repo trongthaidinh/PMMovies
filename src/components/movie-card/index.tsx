@@ -47,7 +47,6 @@ const MovieCard = ({ item, className }: Props) => {
               src={item.thumb_url}
               alt={item.name}
               className="rounded-lg object-cover"
-              priority={false}
             />
             {item?.tmdb?.vote_average && (
               <div
