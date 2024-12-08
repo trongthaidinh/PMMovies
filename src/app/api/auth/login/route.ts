@@ -9,6 +9,17 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const { email, password } = await req.json();
 
+    // Validate input
+    if (!email || !password) {
+      return Response.json(
+        responseJson({
+          data: null,
+          code: 400,
+          message: "Vui lòng điền đầy đủ thông tin",
+        }),
+      );
+    }
+
     // Find user
     const user = await User.findOne({ email });
     if (!user) {

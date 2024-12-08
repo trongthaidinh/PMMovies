@@ -52,15 +52,15 @@ export default function RootLayout({
         /> */}
       </head>
       <body className={`${sourceSans3.className} antialiased`}>
-        <ReactQueryProvider>
-          <AuthProvider>
+        <AuthProvider>
+          <ReactQueryProvider>
             <div className="min-h-screen">
               <Header />
               <main className="container pt-safe">{children}</main>
               <Footer />
             </div>
-          </AuthProvider>
-        </ReactQueryProvider>
+          </ReactQueryProvider>
+        </AuthProvider>
         <Toaster
           position="top-center"
           toastOptions={{

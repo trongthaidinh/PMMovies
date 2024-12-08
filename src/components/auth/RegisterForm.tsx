@@ -13,7 +13,9 @@ export default function RegisterForm() {
     username: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { register } = useAuth();
+  const auth = useAuth();
+  if (!auth) throw new Error("Auth context is undefined");
+  const { register } = auth;
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +36,12 @@ export default function RegisterForm() {
 
     try {
       setIsSubmitting(true);
-      await register(formData.email, formData.password, formData.username);
+      const response = await register(formData.email, formData.password, formData.username);
+      
+      // Lưu token sau khi đăng ký thành công
+      localStorage.setItem("access_token", response.data.accessToken);
+      localStorage.setItem("refresh_token", response.data.refreshToken);
+      
       toast.success("Đăng ký thành công");
       router.push("/");
     } catch (err: any) {
@@ -47,6 +54,18 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
+        <label className="mb-1 block text-sm font-medium">Email</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full rounded bg-dark-1 p-2"
+          required
+        />
+      </div>
+
+      <div>
         <label className="mb-1 block text-sm font-medium">Tên người dùng</label>
         <input
           type="text"
@@ -56,18 +75,6 @@ export default function RegisterForm() {
           className="w-full rounded bg-dark-1 p-2"
           required
           minLength={3}
-        />
-      </div>
-
-      <div>
-        <label className="mb-1 block text-sm font-medium">Email</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full rounded bg-dark-1 p-2"
-          required
         />
       </div>
 
@@ -85,9 +92,7 @@ export default function RegisterForm() {
       </div>
 
       <div>
-        <label className="mb-1 block text-sm font-medium">
-          Xác nhận mật khẩu
-        </label>
+        <label className="mb-1 block text-sm font-medium">Xác nhận mật khẩu</label>
         <input
           type="password"
           name="confirmPassword"
@@ -95,6 +100,7 @@ export default function RegisterForm() {
           onChange={handleChange}
           className="w-full rounded bg-dark-1 p-2"
           required
+          minLength={6}
         />
       </div>
 

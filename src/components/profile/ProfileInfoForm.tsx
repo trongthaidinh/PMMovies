@@ -3,20 +3,17 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { axiosClient } from "@/config/axios";
-import Image from "next/image";
 import toast from "react-hot-toast";
+import { User } from "@/types/auth";
 
 interface Props {
-  user: {
-    id: string;
-    email: string;
-    username: string;
-    avatar?: string;
-  };
+  user: User;
 }
 
 export default function ProfileInfoForm({ user }: Props) {
-  const { setUser } = useAuth();
+  const auth = useAuth();
+  if (!auth) throw new Error("Auth context is undefined");
+  const { setUser } = auth;
   const [formData, setFormData] = useState({
     username: user.username,
     avatar: user.avatar || "",
@@ -27,14 +24,6 @@ export default function ProfileInfoForm({ user }: Props) {
   useEffect(() => {
     setPreviewUrl(user.avatar || "");
   }, [user.avatar]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -51,7 +40,7 @@ export default function ProfileInfoForm({ user }: Props) {
     e.preventDefault();
 
     const formDataToSend = new FormData();
-    formDataToSend.append("username", formData.username);
+    formDataToSend.append("username", formData.username || "");
 
     const fileInput = document.querySelector(
       'input[type="file"]',
@@ -73,10 +62,15 @@ export default function ProfileInfoForm({ user }: Props) {
       );
 
       if (response.data.code === 200) {
-        setUser(response.data.data);
+        const updatedUser = response.data.data;
+        setUser(updatedUser);
+        setPreviewUrl(updatedUser.avatar || "");
         toast.success(response.data.message);
+      } else {
+        throw new Error(response.data.message);
       }
     } catch (err: any) {
+      console.error("Update profile error:", err);
       toast.error(
         err.response?.data?.message || "Có lỗi xảy ra khi cập nhật thông tin",
       );
@@ -87,31 +81,27 @@ export default function ProfileInfoForm({ user }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="flex flex-col items-center gap-4">
-        <div className="relative size-24">
-          <Image
+      <div className="flex flex-col items-center space-y-4">
+        <div className="relative h-24 w-24">
+          <img
             src={previewUrl || "/default-avatar.png"}
             alt="Avatar"
-            fill
-            className="rounded-full object-cover"
+            className="h-full w-full rounded-full object-cover"
           />
         </div>
         <input
           type="file"
-          accept="image/*"
           onChange={handleFileChange}
-          className="w-full cursor-pointer rounded bg-dark-1 p-2 text-sm"
+          accept="image/*"
+          className="hidden"
+          id="avatar-input"
         />
-      </div>
-
-      <div>
-        <label className="mb-1 block text-sm font-medium">Email</label>
-        <input
-          type="email"
-          value={user.email}
-          disabled
-          className="bg-dark-2 w-full rounded p-2 opacity-70"
-        />
+        <label
+          htmlFor="avatar-input"
+          className="cursor-pointer rounded bg-primary px-4 py-2 text-sm hover:bg-primary/80"
+        >
+          Chọn ảnh
+        </label>
       </div>
 
       <div>
@@ -120,7 +110,7 @@ export default function ProfileInfoForm({ user }: Props) {
           type="text"
           name="username"
           value={formData.username}
-          onChange={handleChange}
+          onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
           className="w-full rounded bg-dark-1 p-2"
           required
           minLength={3}
@@ -132,7 +122,7 @@ export default function ProfileInfoForm({ user }: Props) {
         disabled={isSubmitting}
         className="w-full rounded bg-primary p-2 transition-colors hover:bg-primary/80 disabled:opacity-50"
       >
-        {isSubmitting ? "Đang cập nhật..." : "Cập nhật thông tin"}
+        {isSubmitting ? "Đang cập nhật..." : "Cập nhật"}
       </button>
     </form>
   );

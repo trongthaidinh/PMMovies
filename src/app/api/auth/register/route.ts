@@ -9,11 +9,30 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const { email, password, username } = await req.json();
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return Response.json({ error: "Email đã được sử dụng" }, { status: 400 });
+    // Validate input
+    if (!email || !password || !username) {
+      return Response.json(
+        responseJson({
+          data: null,
+          code: 400,
+          message: "Vui lòng điền đầy đủ thông tin",
+        }),
+      );
     }
 
+    // Check existing user
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return Response.json(
+        responseJson({
+          data: null,
+          code: 400,
+          message: "Email đã được sử dụng",
+        }),
+      );
+    }
+
+    // Hash password and create user
     const hashedPassword = await hashPassword(password);
     const user = await User.create({
       email,
@@ -21,7 +40,8 @@ export async function POST(req: NextRequest) {
       password: hashedPassword,
     });
 
-    const token = generateTokens(user._id.toString());
+    // Generate tokens
+    const { accessToken, refreshToken } = generateTokens(user._id.toString());
 
     return Response.json(
       responseJson({
@@ -31,7 +51,8 @@ export async function POST(req: NextRequest) {
             email: user.email,
             username: user.username,
           },
-          token,
+          accessToken,
+          refreshToken,
         },
         code: 200,
         message: "Đăng ký thành công",
@@ -40,8 +61,11 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Registration error:", error);
     return Response.json(
-      { error: "Có lỗi xảy ra khi đăng ký" },
-      { status: 500 },
+      responseJson({
+        data: null,
+        code: 500,
+        message: "Có lỗi xảy ra khi đăng ký",
+      }),
     );
   }
 }

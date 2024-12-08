@@ -9,7 +9,9 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login } = useAuth();
+  const auth = useAuth();
+  if (!auth) throw new Error("Auth context is undefined");
+  const { login } = auth;
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -17,7 +19,11 @@ export default function LoginForm() {
     try {
       setIsSubmitting(true);
       const response = await login(email, password);
-      localStorage.setItem("auth_token", response.token);
+      
+      // Lưu cả access token và refresh token
+      localStorage.setItem("access_token", response.data.accessToken);
+      localStorage.setItem("refresh_token", response.data.refreshToken);
+      
       toast.success("Đăng nhập thành công");
       router.push("/");
     } catch (err: any) {
