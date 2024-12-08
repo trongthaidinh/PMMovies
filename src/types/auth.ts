@@ -8,11 +8,11 @@ export interface User {
   avatar?: string;
 }
 
-export interface AuthContextType {
+export type AuthContextType = {
   user: User | null;
-  loading: boolean;
+  isLoading: boolean;
   setUser: (user: User | null) => void;
   login: (email: string, password: string) => Promise<any>;
   register: (email: string, password: string, username: string) => Promise<any>;
   logout: () => void;
-} 
+}; 

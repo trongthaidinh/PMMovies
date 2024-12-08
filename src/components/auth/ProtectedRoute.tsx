@@ -5,16 +5,16 @@ import { useRouter } from 'next/navigation';
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const auth = useAuth();
   if (!auth) throw new Error("Auth context is undefined");
-  const { user, loading } = auth;
+  const { user, isLoading } = auth;
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (!isLoading && !user) {
       router.push('/auth/login');
     }
-  }, [loading, user, router]);
+  }, [isLoading, user, router]);
 
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>; 
   }
 
